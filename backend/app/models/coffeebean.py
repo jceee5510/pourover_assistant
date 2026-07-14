@@ -2,8 +2,8 @@ from sqlalchemy import Column, Integer, String, Date
 from app.database import Base
 
 
-class PourOver(Base):
-    __tablename__ = "pourovers"
+class CoffeeBean(Base):
+    __tablename__ = "coffee_beans"
 
     id = Column(Integer, primary_key=True)
 

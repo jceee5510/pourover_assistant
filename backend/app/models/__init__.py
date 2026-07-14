@@ -1,1 +1,1 @@
-from .pourover import PourOver
+from .coffeebean import CoffeeBean

@@ -2,7 +2,7 @@ from datetime import date
 from pydantic import BaseModel
 
 
-class PourOverCreate(BaseModel):
+class CoffeeBeanCreate(BaseModel):
     name: str
     roaster: str
     origin: str
@@ -11,7 +11,7 @@ class PourOverCreate(BaseModel):
     notes: str
 
 
-class PourOverResponse(BaseModel):
+class CoffeeBeanResponse(BaseModel):
     id: int
     name: str
     roaster: str

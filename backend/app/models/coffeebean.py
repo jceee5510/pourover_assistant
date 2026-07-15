@@ -1,4 +1,5 @@
 from sqlalchemy import Column, Integer, String, Date
+from sqlalchemy.orm import relationship
 from app.database import Base
 
 
@@ -18,3 +19,8 @@ class CoffeeBean(Base):
     roast_date = Column(Date)
 
     notes = Column(String)
+
+    brews = relationship(
+        "Brew",
+        backref="coffee_bean"
+    )

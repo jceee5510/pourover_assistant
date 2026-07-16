@@ -1,15 +1,23 @@
-from sqlalchemy import Column, Integer, String, Float, ForeignKey
+from sqlalchemy import Column, Integer, String, Float, ForeignKey, DateTime
 from app.database import Base
-
+from sqlalchemy.orm import relationship
+from app.services.brew_calculator import calculate_ratio
+from datetime import datetime
 
 class Brew(Base):
     __tablename__ = "brews"
 
     id = Column(Integer, primary_key=True)
 
-    coffee_bean_id = Column(
+    dial_in_session_id = Column(
         Integer,
-        ForeignKey("coffee_beans.id"),
+        ForeignKey("dial_in_sessions.id"),
+        nullable=False
+    )
+
+    created_at = Column(
+        DateTime,
+        default=datetime.utcnow,
         nullable=False
     )
 
@@ -39,3 +47,15 @@ class Brew(Base):
     overall_score = Column(Integer)
 
     notes = Column(String)
+
+    dial_in_session = relationship(
+        "DialInSession",
+        back_populates="brews"
+    )
+
+    @property
+    def ratio(self):
+        return calculate_ratio(
+            self.dose_grams,
+            self.water_grams
+        )

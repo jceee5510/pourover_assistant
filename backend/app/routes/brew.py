@@ -28,7 +28,7 @@ def create_brew(
 ):
 
     new_brew = Brew(
-        coffee_bean_id=brew.coffee_bean_id,
+        dial_in_session_id=brew.dial_in_session_id,
 
         dose_grams=brew.dose_grams,
         water_grams=brew.water_grams,
@@ -59,9 +59,10 @@ def create_brew(
     db.commit()
     db.refresh(new_brew)
 
-    response = BrewResponse(
+    return BrewResponse(
         id=new_brew.id,
-        coffee_bean_id=new_brew.coffee_bean_id,
+
+        dial_in_session_id=new_brew.dial_in_session_id,
 
         dose_grams=new_brew.dose_grams,
         water_grams=new_brew.water_grams,
@@ -93,54 +94,57 @@ def create_brew(
         )
     )
 
-    return response
-
 
 @router.get("/", response_model=list[BrewResponse])
 def get_brews(
     db: Session = Depends(get_db)
 ):
 
-    brews = db.query(Brew).all()
+    brews = (
+        db.query(Brew)
+        .order_by(Brew.created_at)
+        .all()
+    )   
 
     responses = []
 
     for brew in brews:
 
-        response = BrewResponse(
-            id=brew.id,
-            coffee_bean_id=brew.coffee_bean_id,
+        responses.append(
+            BrewResponse(
+                id=brew.id,
 
-            dose_grams=brew.dose_grams,
-            water_grams=brew.water_grams,
-            water_temperature=brew.water_temperature,
+                dial_in_session_id=brew.dial_in_session_id,
 
-            grinder=brew.grinder,
-            grind_setting=brew.grind_setting,
+                dose_grams=brew.dose_grams,
+                water_grams=brew.water_grams,
+                water_temperature=brew.water_temperature,
 
-            filter_paper=brew.filter_paper,
-            brew_method=brew.brew_method,
+                grinder=brew.grinder,
+                grind_setting=brew.grind_setting,
 
-            bloom_time_seconds=brew.bloom_time_seconds,
-            total_brew_time_seconds=brew.total_brew_time_seconds,
-            number_of_pours=brew.number_of_pours,
+                filter_paper=brew.filter_paper,
+                brew_method=brew.brew_method,
 
-            sweetness=brew.sweetness,
-            acidity=brew.acidity,
-            bitterness=brew.bitterness,
-            body=brew.body,
-            clarity=brew.clarity,
+                bloom_time_seconds=brew.bloom_time_seconds,
+                total_brew_time_seconds=brew.total_brew_time_seconds,
+                number_of_pours=brew.number_of_pours,
 
-            overall_score=brew.overall_score,
+                sweetness=brew.sweetness,
+                acidity=brew.acidity,
+                bitterness=brew.bitterness,
+                body=brew.body,
+                clarity=brew.clarity,
 
-            notes=brew.notes,
+                overall_score=brew.overall_score,
 
-            ratio=calculate_ratio(
-                brew.dose_grams,
-                brew.water_grams
+                notes=brew.notes,
+
+                ratio=calculate_ratio(
+                    brew.dose_grams,
+                    brew.water_grams
+                )
             )
         )
-
-        responses.append(response)
 
     return responses

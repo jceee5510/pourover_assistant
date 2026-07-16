@@ -4,6 +4,7 @@ from app.models import coffeebean
 from app.routes import coffeebean
 from app.routes import brew
 from app.routes import analytics
+from app.routes import dial_in_session
 
 Base.metadata.create_all(bind=engine)
 
@@ -15,6 +16,7 @@ app = FastAPI(
 app.include_router(coffeebean.router)
 app.include_router(brew.router)
 app.include_router(analytics.router)
+app.include_router(dial_in_session.router)
 
 @app.get("/")
 def root():

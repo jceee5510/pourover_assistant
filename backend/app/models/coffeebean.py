@@ -20,7 +20,7 @@ class CoffeeBean(Base):
 
     notes = Column(String)
 
-    brews = relationship(
-        "Brew",
-        backref="coffee_bean"
+    dial_in_sessions = relationship(
+        "DialInSession",
+        back_populates="coffee_bean"
     )

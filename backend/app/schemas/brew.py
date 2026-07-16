@@ -1,8 +1,9 @@
 from pydantic import BaseModel
-
+from datetime import datetime
 
 class BrewCreate(BaseModel):
-    coffee_bean_id: int
+
+    dial_in_session_id: int
 
     dose_grams: float
     water_grams: float
@@ -32,12 +33,15 @@ class BrewCreate(BaseModel):
 class BrewResponse(BaseModel):
     id: int
 
-    coffee_bean_id: int
+    dial_in_session_id: int
 
-    ratio: str
+    created_at: datetime
+
     dose_grams: float
     water_grams: float
     water_temperature: float
+
+    ratio: str
 
     grinder: str
     grind_setting: float

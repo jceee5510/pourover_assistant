@@ -25,6 +25,7 @@ from app.database import Base
 from app.models.coffeebean import CoffeeBean
 from app.models.brew import Brew
 from app.models.dial_in_session import DialInSession
+from app.models.brew_analysis import BrewAnalysis
 
 # add your model's MetaData object here
 # for 'autogenerate' support

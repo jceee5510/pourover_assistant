@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from datetime import datetime
 
+
 class BrewCreate(BaseModel):
 
     dial_in_session_id: int

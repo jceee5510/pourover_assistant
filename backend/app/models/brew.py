@@ -59,3 +59,13 @@ class Brew(Base):
             self.dose_grams,
             self.water_grams
         )
+
+    previous_analyses = relationship(
+        "BrewAnalysis",
+        foreign_keys="BrewAnalysis.previous_brew_id"
+    )
+
+    next_analyses = relationship(
+        "BrewAnalysis",
+        foreign_keys="BrewAnalysis.current_brew_id"
+    )

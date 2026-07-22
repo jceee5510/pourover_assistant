@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pour Over Brain</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 2rem; line-height: 1.5; background: #f7f4ee; color: #2f241d; }
+      h1, h2 { margin-top: 0; }
+      form { display: grid; gap: 0.75rem; max-width: 500px; }
+      label { display: grid; gap: 0.25rem; }
+      input, textarea, button { padding: 0.6rem; font: inherit; }
+      button { border: 0; border-radius: 6px; background: #6f4e37; color: white; cursor: pointer; }
+      .card { border: 1px solid #ddd; padding: 1rem; border-radius: 10px; margin-top: 1rem; background: white; box-shadow: 0 1px 4px rgba(0,0,0,0.05); }
+      .session-list { display: grid; gap: 0.5rem; }
+      .session-item { border: 1px solid #e4d9ca; padding: 0.6rem; border-radius: 6px; cursor: pointer; }
+      .session-item.active { background: #efe2d2; }
+      .brew-card { border: 1px solid #e4d9ca; padding: 0.75rem; border-radius: 8px; margin-bottom: 0.75rem; background: #fcfaf7; }
+      .muted { color: #6b5b4e; }
+    </style>
+  </head>
+  <body>
+    <h1>Pour Over Brain</h1>
+    <p>Create a session and log a brew to get AI-style guidance.</p>
+
+    <div class="card">
+      <h2>Create session</h2>
+      <form id="session-form">
+        <label>
+          Coffee bean ID
+          <input id="coffee-bean-id" type="number" value="1" required />
+        </label>
+        <label>
+          Goal type
+          <input id="goal-type" value="balance" required />
+        </label>
+        <label>
+          Desired notes
+          <input id="desired-notes" value="sweet and clean" required />
+        </label>
+        <label>
+          Preferred profile
+          <input id="preferred-profile" value="medium body" required />
+        </label>
+        <button type="submit">Create Session</button>
+      </form>
+    </div>
+
+    <div class="card">
+      <h2>Log brew</h2>
+      <form id="brew-form">
+        <label>
+          Session ID
+          <input id="session-id" type="number" required />
+        </label>
+        <label>
+          Dose grams
+          <input id="dose-grams" type="number" step="0.1" value="18" required />
+        </label>
+        <label>
+          Water grams
+          <input id="water-grams" type="number" step="0.1" value="300" required />
+        </label>
+        <label>
+          Water temperature
+          <input id="water-temperature" type="number" step="0.1" value="93" required />
+        </label>
+        <label>
+          Grind setting
+          <input id="grind-setting" type="number" step="0.1" value="6" required />
+        </label>
+        <label>
+          Overall score
+          <input id="overall-score" type="number" value="7" required />
+        </label>
+        <label>
+          Notes
+          <textarea id="notes">Balanced cup</textarea>
+        </label>
+        <button type="submit">Save Brew</button>
+      </form>
+    </div>
+
+    <div class="card">
+      <h2>Current sessions</h2>
+      <pre id="session-list-output">Loading sessions...</pre>
+    </div>
+
+    <div class="card">
+      <h2>Brews for current session</h2>
+      <pre id="brew-list-output">No session selected.</pre>
+    </div>
+
+    <div class="card">
+      <h2>Recommendation</h2>
+      <button id="recommend-btn">Get Recommendation</button>
+      <pre id="recommendation-output">No recommendation yet.</pre>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>

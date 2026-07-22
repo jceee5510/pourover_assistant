@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from app.database import engine, Base
 from app.models import coffeebean
 from app.routes import coffeebean
@@ -11,6 +12,14 @@ Base.metadata.create_all(bind=engine)
 app = FastAPI(
     title="pourover brain",
     version="0.1"
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://127.0.0.1:3000", "http://localhost:3000"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 app.include_router(coffeebean.router)

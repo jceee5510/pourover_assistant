@@ -7,6 +7,7 @@ class BrewRecommendationResponse(BaseModel):
     recommendation: str
     suggested_changes: List[str]
     summary: str
+    explanation: str
 
     class Config:
         from_attributes = True

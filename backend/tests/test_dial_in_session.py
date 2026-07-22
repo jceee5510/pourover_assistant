@@ -111,6 +111,7 @@ class DialInSessionRouteTests(unittest.TestCase):
         self.assertEqual(recommendation.session_id, session.id)
         self.assertGreater(len(recommendation.suggested_changes), 0)
         self.assertIn("grind", recommendation.recommendation.lower())
+        self.assertTrue(recommendation.explanation)
 
 
 if __name__ == "__main__":

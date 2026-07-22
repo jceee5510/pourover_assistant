@@ -1,5 +1,6 @@
 from typing import List, Dict, Any
 from app.models.brew import Brew
+from app.services.llm_explainer import LLMExplainer
 
 
 def build_brew_recommendation(brews: List[Brew]) -> Dict[str, Any]:
@@ -9,6 +10,7 @@ def build_brew_recommendation(brews: List[Brew]) -> Dict[str, Any]:
             "recommendation": "Log a few brews first so I can suggest a better next adjustment.",
             "suggested_changes": [],
             "summary": "No brew history yet.",
+            "explanation": "You need a little more brew history before I can give you a strong recommendation.",
         }
 
     latest = brews[-1]
@@ -51,9 +53,19 @@ def build_brew_recommendation(brews: List[Brew]) -> Dict[str, Any]:
     recommendation = " ".join(suggested_changes[:3])
     summary = " ".join(summary_parts) if summary_parts else "Recent brew history reviewed."
 
+    explainer = LLMExplainer()
+    explanation = explainer.explain(
+        {
+            "summary": summary,
+            "recommendation": recommendation,
+            "suggested_changes": suggested_changes,
+        }
+    )
+
     return {
         "session_id": None,
         "recommendation": recommendation,
         "suggested_changes": suggested_changes,
         "summary": summary,
+        "explanation": explanation,
     }
